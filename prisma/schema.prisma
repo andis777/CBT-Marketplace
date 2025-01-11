@@ -1,0 +1,133 @@
+// This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String         @id @default(uuid())
+  email           String         @unique
+  passwordHash    String         @map("password_hash")
+  name            String
+  role            Role
+  avatarUrl       String?        @map("avatar_url")
+  isVerified      Boolean        @default(false) @map("is_verified")
+  isActive        Boolean        @default(true) @map("is_active")
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  institution     Institution?
+  psychologist    Psychologist?
+  articles        Article[]
+  reviews         Review[]
+  appointments    Appointment[]
+
+  @@map("users")
+}
+
+model Institution {
+  id                String        @id @default(uuid())
+  userId           String        @unique @map("user_id")
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  description      String?       @db.Text
+  address          String?
+  psychologistsCount Int         @default(0) @map("psychologists_count")
+  services         Json?
+  contacts         Json?
+  isVerified       Boolean       @default(false) @map("is_verified")
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+  psychologists    Psychologist[]
+
+  @@map("institutions")
+}
+
+model Psychologist {
+  id              String        @id @default(uuid())
+  userId          String        @unique @map("user_id")
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  description     String?       @db.Text
+  experience      Int           @default(0)
+  institutionId   String?       @map("institution_id")
+  institution     Institution?  @relation(fields: [institutionId], references: [id])
+  rating          Float         @default(0)
+  reviewsCount    Int          @default(0) @map("reviews_count")
+  specializations Json?
+  languages       Json?
+  memberships     Json?
+  education       Json?
+  certifications  Json?
+  gallery         Json?
+  location        Json?
+  contacts        Json?
+  services        Json?
+  reviews         Review[]
+  appointments    Appointment[]
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+
+  @@map("psychologists")
+}
+
+model Article {
+  id          String    @id @default(uuid())
+  title       String
+  preview     String?   @db.Text
+  content     String    @db.Text
+  imageUrl    String?   @map("image_url")
+  authorId    String    @map("author_id")
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  views       Int       @default(0)
+  tags        Json?
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("articles")
+}
+
+model Review {
+  id              String      @id @default(uuid())
+  authorId        String      @map("author_id")
+  author          User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  psychologistId  String      @map("psychologist_id")
+  psychologist    Psychologist @relation(fields: [psychologistId], references: [id], onDelete: Cascade)
+  rating          Int
+  comment         String?     @db.Text
+  reply           String?     @db.Text
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@map("reviews")
+}
+
+model Appointment {
+  id              String      @id @default(uuid())
+  clientId        String      @map("client_id")
+  client          User        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  psychologistId  String      @map("psychologist_id")
+  psychologist    Psychologist @relation(fields: [psychologistId], references: [id], onDelete: Cascade)
+  appointmentDate DateTime    @map("appointment_date")
+  status          AppointmentStatus @default(PENDING)
+  notes           String?     @db.Text
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@map("appointments")
+}
+
+enum Role {
+  ADMIN
+  PSYCHOLOGIST
+  INSTITUTE
+  CLIENT
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}

@@ -1,0 +1,139 @@
+{
+  "users": [
+    {
+      "model": "api.user",
+      "pk": 1,
+      "fields": {
+        "password": "pbkdf2_sha256$600000$hashed_password_here",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "anna",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-15T12:00:00Z",
+        "name": "Анна Петрова",
+        "email": "anna@кпт.рф",
+        "role": "psychologist",
+        "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200&h=200",
+        "is_verified": true
+      }
+    },
+    {
+      "model": "api.user",
+      "pk": 2,
+      "fields": {
+        "password": "pbkdf2_sha256$600000$hashed_password_here",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "mip",
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-03-15T12:00:00Z",
+        "name": "Московский Институт Психоанализа",
+        "email": "mip@кпт.рф",
+        "role": "institute",
+        "avatar": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=200&h=200",
+        "is_verified": true
+      }
+    }
+  ],
+  "institutions": [
+    {
+      "model": "api.institution",
+      "pk": 1,
+      "fields": {
+        "user": 2,
+        "name": "Московский Институт Психоанализа",
+        "description": "Ведущий институт в области психологического образования и подготовки специалистов КПТ.\n\nНаша миссия - подготовка высококвалифицированных специалистов в области когнитивно-поведенческой терапии.",
+        "avatar": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=200&h=200",
+        "address": "г. Москва, ул. Ленина, 1",
+        "psychologists_count": 45,
+        "services": [
+          {
+            "id": "edu1",
+            "name": "Базовый курс КПТ",
+            "description": "Фундаментальная программа подготовки специалистов в области когнитивно-поведенческой терапии",
+            "price": 45000
+          },
+          {
+            "id": "edu2",
+            "name": "Продвинутый курс КПТ",
+            "description": "Углубленное изучение методов и техник когнитивно-поведенческой терапии",
+            "price": 65000
+          }
+        ],
+        "contacts": {
+          "phone": "+7 (495) 199-19-93",
+          "email": "info@кпт.рф",
+          "website": "кпт.рф"
+        },
+        "is_verified": true
+      }
+    }
+  ],
+  "psychologists": [
+    {
+      "model": "api.psychologist",
+      "pk": 1,
+      "fields": {
+        "user": 1,
+        "description": "Специализируюсь на когнитивно-поведенческой терапии с фокусом на лечении тревожных расстройств и депрессии. Помогаю клиентам развить навыки осознанности и эмоциональной регуляции.",
+        "experience": 8,
+        "institution": 1,
+        "rating": 4.9,
+        "reviews_count": 124,
+        "specializations": ["Тревожные расстройства", "Депрессия", "Панические атаки", "Социальная тревожность", "Стресс-менеджмент"],
+        "languages": ["Русский", "Английский"],
+        "memberships": [
+          "Ассоциация Когнитивно-Поведенческой Психотерапии",
+          "Европейская Ассоциация КПТ"
+        ],
+        "education": [
+          "МГУ им. М.В. Ломоносова, факультет психологии",
+          "Институт КПТ, специализация по работе с тревожными расстройствами"
+        ],
+        "certifications": [
+          "Сертификат АКПП по когнитивно-поведенческой терапии",
+          "Международный сертификат CBT Practitioner"
+        ],
+        "gallery": [
+          "https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&q=80&w=300&h=200",
+          "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=300&h=200",
+          "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?auto=format&fit=crop&q=80&w=300&h=200"
+        ],
+        "location": {
+          "city": "Москва",
+          "country": "Россия"
+        },
+        "contacts": {
+          "phone": "+7 (999) 123-45-67",
+          "email": "anna@кпт.рф",
+          "whatsapp": "+79991234567",
+          "telegram": "@anna_petrova",
+          "instagram": "@anna.cbt.psy"
+        }
+      }
+    }
+  ],
+  "articles": [
+    {
+      "model": "api.article",
+      "pk": 1,
+      "fields": {
+        "title": "Как справиться с тревогой: практические техники КПТ",
+        "preview": "В этой статье мы рассмотрим основные техники когнитивно-поведенческой терапии для управления тревогой...",
+        "content": "# Как справиться с тревогой\n\nТревога является естественной реакцией организма на стресс, но иногда она может стать чрезмерной и мешать повседневной жизни. В этой статье мы рассмотрим эффективные техники когнитивно-поведенческой терапии для управления тревогой.\n\n## Что такое тревога?\n\nТревога – это эмоциональное состояние, характеризующееся чувством напряжения, беспокойства и физическими изменениями...",
+        "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1000&h=600",
+        "author": 1,
+        "views": 1234,
+        "tags": ["Тревога", "КПТ", "Психическое здоровье", "Техники релаксации", "Самопомощь"],
+        "created_at": "2024-03-15T12:00:00Z",
+        "updated_at": "2024-03-15T12:00:00Z"
+      }
+    }
+  ]
+}
