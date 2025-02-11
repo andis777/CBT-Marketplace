@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+        display: ['"Nunito Sans"', 'system-ui', 'sans-serif'],
+      },
       colors: {
         primary: {
           50: '#EBF7FE',
@@ -22,5 +26,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
